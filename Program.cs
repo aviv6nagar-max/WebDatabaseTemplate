@@ -25,17 +25,16 @@ class Program
         {
             var request = server.WaitForRequest();
 
-            Console.WriteLine($"Request: {request.Name}");
-
             try
             {
-               
+                // ▶ התחלת משחק
                 if (request.Name == "startGame")
                 {
                     secretNumber = new Random().Next(1, 101);
                     request.Respond("Game started");
                 }
 
+                // ▶ ניחוש מספר
                 else if (request.Name == "guess")
                 {
                     int guess = request.GetParams<int>();
@@ -48,7 +47,7 @@ class Program
                         request.Respond("Correct");
                 }
 
-               
+                // ▶ שמירת ניקוד
                 else if (request.Name == "saveScore")
                 {
                     var (name, attempts) = request.GetParams<(string, int)>();
@@ -65,6 +64,7 @@ class Program
                     request.Respond("Saved");
                 }
 
+                // ▶ קבלת ניקוד
                 else if (request.Name == "getScores")
                 {
                     var scores = database.Scores
@@ -82,3 +82,19 @@ class Program
         }
     }
 }
+
+#region Database + Model
+
+class Database() : DatabaseCore("database")
+{
+    public DbSet<Score> Scores { get; set; } = default!;
+}
+
+class Score
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public int Attempts { get; set; }
+}
+
+#endregion

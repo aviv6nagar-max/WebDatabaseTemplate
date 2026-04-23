@@ -2,26 +2,29 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />
-    <title>Guess Game - Main Page</title>
+    <title>Guess Game</title>
   </head>
 
   <body>
 
     <div id="containerDiv">
 
-      <h1>🎮 Guess the Number Game</h1>
+      <h1>🎮 Guess the Number</h1>
       <p>Try to guess the secret number!</p>
 
-      <div class="authDiv">
-        <input id="itemInput" placeholder="Your guess">
-        <input id="amountInput" placeholder="(optional info like name or attempts)">
-        <button id="addButton">Submit Guess</button>
-      </div>
+     
+      <input id="nameInput" placeholder="Your name">
+
+      
+      <input id="guessInput" type="number" placeholder="Enter your guess">
+
+      <button id="addButton">Guess</button>
 
       <ul id="itemsUl"></ul>
 
     </div>
 
     <script type="module" src="index.js"></script>
+
   </body>
 </html>

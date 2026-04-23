@@ -1,19 +1,79 @@
-#containerDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  height: 100vh;
-  font-family: Arial;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #dff6ff, #b3e5ff);
+  color: #00334d;
 }
 
-.authDiv {
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+
+#containerDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f9f9f9;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+
+h1 {
+  font-size: 48px;
+  color: #0077b6;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #0096c7;
+}
+
+
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+button {
+  background-color: #00b4d8;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0077b6;
+}
+
+
+input {
+  padding: 10px;
+  margin: 5px;
+  border: 2px solid #00b4d8;
+  border-radius: 8px;
+  outline: none;
+}
+
+
+.authDiv {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
 }
