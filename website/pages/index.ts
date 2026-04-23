@@ -1,21 +1,27 @@
-import type { Item } from "types";
 import { send } from "clientUtilities";
-import { create } from "componentUtilities";
 
-var itemInput = document.querySelector<HTMLInputElement>("#itemInput")!;
-var amountInput = document.querySelector<HTMLInputElement>("#amountInput")!;
-var addButton = document.querySelector<HTMLButtonElement>("#addButton")!;
-var itemsUl = document.querySelector<HTMLUListElement>("#itemsUl")!;
+let attempts = 0;
 
-var items = await send<Item[]>("getItems");
+var guessInput = document.querySelector<HTMLInputElement>("#itemInput")!;
+var guessButton = document.querySelector<HTMLButtonElement>("#addButton")!;
+var resultList = document.querySelector<HTMLUListElement>("#itemsUl")!;
 
-for (var i = 0; i < items.length; i++) {
-  var itemLi = create("li");
-  itemLi.innerText = `${items[i].amount} ${items[i].name}`;
-  itemsUl.append(itemLi);
-}
 
-addButton.onclick = async function() {
-  await send("addItem", itemInput.value, parseInt(amountInput.value));
-  location.reload();
+await send("startGame");
+
+guessButton.onclick = async function () {
+  let guess = parseInt(guessInput.value);
+
+  let result = await send<string>("guess", guess);
+
+  attempts++;
+
+  var li = document.createElement("li");
+  li.innerText = result;
+  resultList.appendChild(li);
+
+  if (result === "correct") {
+    await send("saveScore", attempts);
+    alert("You won! Attempts: " + attempts);
+  }
 };

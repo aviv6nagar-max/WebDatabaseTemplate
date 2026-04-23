@@ -1,4 +1,4 @@
-export type Item = {
+export type Score = {
   name: string;
-  amount: number;
+  attempts: number;
 };
