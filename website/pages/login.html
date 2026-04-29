@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div class="auth-box">
+  <h2>Login</h2>
+
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+
+  <button onclick="login(event)">Login</button>
+
+  <p>No account? <a href="signup.html">Sign Up</a></p>
+
+  <p id="msg" style="color:red;"></p>
+</div>
+
+<script>
+function login(event) {
+  event.preventDefault();
+
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  const savedUser   = localStorage.getItem("user");
+  const savedPass = localStorage.getItem("pass");
+
+  if (user === savedUser && pass === savedPass) {
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("msg").innerText = "Wrong username or password";
+  }
+}
+</script>
+
+</body>
+</html>

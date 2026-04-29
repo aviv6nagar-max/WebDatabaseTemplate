@@ -1,49 +1,58 @@
 body {
   font-family: Arial;
-  background-color: #f0f0f0;
+  margin: 0;
+  background: #f4f4f4;
   text-align: center;
 }
 
-
-.navbar {
-  background-color: #333;
+/* Header */
+header {
+  background: #4CAF50;
   color: white;
+  padding: 20px;
+}
+
+/* Nav */
+nav {
+  background: #333;
   padding: 10px;
 }
 
-.navbar a {
+nav a {
   color: white;
   margin: 10px;
   text-decoration: none;
 }
 
-
-.header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px;
-}
-
-
-.books {
-  margin-top: 20px;
-}
-
+/* Books */
 .book {
-  background-color: white;
-  border: 1px solid #ccc;
-  width: 200px;
   display: inline-block;
-  margin: 10px;
-  padding: 10px;
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  width: 180px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
-.book img {
-  width: 100px;
-}
-
+/* Buttons */
 button {
-  margin-top: 5px;
-  padding: 5px;
-  width: 80%;
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  background: #333;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #555;
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  background: #eee;
+  padding: 10px;
 }

@@ -1,14 +1,10 @@
 body {
   text-align: center;
   font-family: Arial;
-  background-color: #eee;
+  background: #eee;
 }
 
 h1 {
-  font-size: 60px;
-}
-
-a {
-  display: block;
-  margin-top: 20px;
+  font-size: 80px;
+  color: red;
 }
