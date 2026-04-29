@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="index.css" />
-    <title>Guess Game</title>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BookLoop</title>
+  <link rel="stylesheet" href="index.css">
+</head>
 
-  <body>
+<body>
 
-    <div id="containerDiv">
+  <!-- Navbar -->
+  <div class="navbar">
+    <h2>📚 BookLoop</h2>
+    <a href="#">Home</a>
+    <a href="#">My Books</a>
+    <a href="#">Login</a>
+  </div>
 
-      <h1>🎮 Guess the Number</h1>
-      <p>Try to guess the secret number!</p>
+  <!-- Header -->
+  <div class="header">
+    <h1>Welcome to the Library</h1>
+    <p>Borrow and buy books easily</p>
+  </div>
 
-     
-      <input id="nameInput" placeholder="Your name">
+  <!-- Books -->
+  <div class="books">
 
-      
-      <input id="guessInput" type="number" placeholder="Enter your guess">
-
-      <button id="addButton">Guess</button>
-
-      <ul id="itemsUl"></ul>
-
+    <div class="book">
+      <img src="https://via.placeholder.com/120">
+      <h3>Harry Potter</h3>
+      <p>J.K Rowling</p>
+      <button>Borrow</button>
+      <button>Buy</button>
     </div>
 
-    <script type="module" src="index.js"></script>
+    <div class="book">
+      <img src="https://via.placeholder.com/120">
+      <h3>The Hobbit</h3>
+      <p>J.R.R Tolkien</p>
+      <button>Borrow</button>
+      <button>Buy</button>
+    </div>
 
-  </body>
+  </div>
+
+</body>
 </html>

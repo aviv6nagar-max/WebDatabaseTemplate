@@ -1,4 +1,3 @@
-export type Score = {
-  name: string;
-  attempts: number;
+export type BookRequest = {
+  bookId: number;
 };

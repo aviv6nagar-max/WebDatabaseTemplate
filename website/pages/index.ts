@@ -1,27 +1,23 @@
-import { send } from "clientUtilities";
+function borrowBook(id: number) {
+  fetch("http://localhost:5000/borrow", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ bookId: id })
+  })
+  .then(res => res.text())
+  .then(data => alert(data));
+}
 
-let attempts = 0;
-
-var guessInput = document.querySelector<HTMLInputElement>("#itemInput")!;
-var guessButton = document.querySelector<HTMLButtonElement>("#addButton")!;
-var resultList = document.querySelector<HTMLUListElement>("#itemsUl")!;
-
-
-await send("startGame");
-
-guessButton.onclick = async function () {
-  let guess = parseInt(guessInput.value);
-
-  let result = await send<string>("guess", guess);
-
-  attempts++;
-
-  var li = document.createElement("li");
-  li.innerText = result;
-  resultList.appendChild(li);
-
-  if (result === "correct") {
-    await send("saveScore", attempts);
-    alert("You won! Attempts: " + attempts);
-  }
-};
+function buyBook(id: number) {
+  fetch("http://localhost:5000/buy", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ bookId: id })
+  })
+  .then(res => res.text())
+  .then(data => alert(data));
+}
