@@ -5,14 +5,14 @@ body {
   text-align: center;
 }
 
-/* Header */
+
 header {
   background: #4CAF50;
   color: white;
   padding: 20px;
 }
 
-/* Nav */
+
 nav {
   background: #333;
   padding: 10px;
@@ -24,7 +24,7 @@ nav a {
   text-decoration: none;
 }
 
-/* Books */
+
 .book {
   display: inline-block;
   background: white;
@@ -35,24 +35,29 @@ nav a {
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
-/* Buttons */
+
 button {
   margin: 5px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   border: none;
-  background: #333;
+  background: blue;
   color: white;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #555;
+  background: darkblue;
 }
 
-/* Footer */
+
 footer {
   margin-top: 20px;
   background: #eee;
   padding: 10px;
 }
+
+  img {
+  width: 150px;
+}
+
