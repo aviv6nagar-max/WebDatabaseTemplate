@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+
+<body class="signup-page">
+
+<a href="index.html" class="back-btn">Back</a>
+
+<div class="signup-container">
+  <h2>Sign Up</h2>
+
+  <form action="login.html">
+    <input type="text" placeholder="Username" required>
+
+
+<input type="password" id="pass" placeholder="Password" required>
+
+<input type="password"
+       placeholder="Confirm Password"
+       required
+       oninput="this.setCustomValidity(this.value !== document.getElementById('pass').value ? 'Passwords do not match' : '')">
+
+<button type="submit">Create Account</button>
+
+
+  </form>
+
+  <p>Already have an account? <a href="login.html">Login</a></p>
+</div>
+
+</body>
+</html>
