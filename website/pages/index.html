@@ -7,6 +7,32 @@
 
   <link rel="stylesheet" href="index.css">
 </head>
+<script>
+function borrowBook() {
+
+    const name = prompt("Enter your name:");
+    if (!name) return;
+
+    const borrowDate = prompt("Enter borrow date (YYYY-MM-DD):");
+    if (borrowDate === "" || borrowDate.length !== 10) {
+        alert("Invalid borrow date!");
+        return;
+    }
+
+    const returnDate = prompt("Enter return date (YYYY-MM-DD):");
+    if (returnDate === "" || returnDate.length !== 10) {
+        alert("Invalid return date!");
+        return;
+    }
+
+    alert(
+        "Borrow confirmed!\n" +
+        "Name: " + name + "\n" +
+        "Borrow date: " + borrowDate + "\n" +
+        "Return date: " + returnDate
+    );
+}
+</script>
 
 <body>
 
@@ -32,7 +58,7 @@
       <p>by J.K Rowling</p>
          <img src="https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_.jpg" alt="img">
 
-      <button id="firstButton">Borrow</button>
+      <button onclick="borrowBook()">Borrow</button>
       
       
     </div>
@@ -42,7 +68,7 @@
       <p>by J.R.R Tolkien</p>
       <img src="https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1546071216i/5907.jpg" alt="img">
 
-      <button id="secondButton">Borrow</button>
+      <button onclick="borrowBook()">Borrow</button>
 
     </div>
 
@@ -50,7 +76,7 @@
       <h2>1984</h2>
       <p>by George Orwell</p>
        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-lsizGS00oXHUujdAeZ_m2kyVVmBRr846rwcFXzANfjwEyo9XVtNKgRlhsvxz5xvN5Ve6pr5KyngOcOyVa1NUT2010dpXwdIG1RcNrg&s=10" alt="">
-      <button id="thirdButton">Borrow</button>
+     <button onclick="borrowBook()">Borrow</button>
 
 
     </div>

@@ -57,7 +57,7 @@ var database = new Database();
 class Database() : DatabaseCore("database")
 {
 public DbSet<Book> Books { get; set; } = default!;
-}
+}   
 class Book(string Title, int Author)
 {
 public int Id { get; set; } = default!;
