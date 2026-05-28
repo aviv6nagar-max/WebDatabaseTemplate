@@ -7,32 +7,7 @@
 
   <link rel="stylesheet" href="index.css">
 </head>
-<script>
-function borrowBook() {
 
-    const name = prompt("Enter your name:");
-    if (!name) return;
-
-    const borrowDate = prompt("Enter borrow date (YYYY-MM-DD):");
-    if (borrowDate === "" || borrowDate.length !== 10) {
-        alert("Invalid borrow date!");
-        return;
-    }
-
-    const returnDate = prompt("Enter return date (YYYY-MM-DD):");
-    if (returnDate === "" || returnDate.length !== 10) {
-        alert("Invalid return date!");
-        return;
-    }
-
-    alert(
-        "Borrow confirmed!\n" +
-        "Name: " + name + "\n" +
-        "Borrow date: " + borrowDate + "\n" +
-        "Return date: " + returnDate
-    );
-}
-</script>
 
 <body>
 
@@ -50,7 +25,7 @@ function borrowBook() {
     <a href="suggests.html">suggest us</a>
   </nav>
 
-
+  
   <main>
 
     <div id="b1" class="book">
