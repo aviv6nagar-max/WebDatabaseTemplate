@@ -45,7 +45,7 @@ class Program
                     }
 
                     var user = new User(
-                        0,
+
                         name,
                         email,
                         password,
@@ -96,7 +96,7 @@ class Program
                         = request.GetParams<(string, string, string)>();
 
                     var book = new Book(
-                        0,
+                    
                         author,
                         name,
                         description
@@ -114,15 +114,15 @@ class Program
                     var (userId, bookId)
                         = request.GetParams<(int, int)>();
 
-                    var borrow = new Borrow(
-                        0,
+                    var Borrow = new Borrow(
+                       
                         userId,
                         bookId,
                         DateTime.Now,
                         null
                     );
 
-                    database.Borrows.Add(borrow);
+                    database.Borrows.Add(Borrow);
                     database.SaveChanges();
 
                     request.Respond("Book borrowed");
@@ -173,18 +173,26 @@ class Program
     static void AddDefaultBooks(Database database)
     {
         database.Books.Add(new Book(
-            0,
+            
             "J.R.R Tolkien",
             "The Hobbit",
             "Fantasy adventure book"
         ));
 
         database.Books.Add(new Book(
-            0,
+
             "George Orwell",
             "1984",
             "Dystopian novel"
         ));
+
+        database.Books.Add(new Book(
+
+            "Harry Potter",
+            "by J.K Rowling",
+            "Fantasy novel "
+        ));
+        
 
         database.SaveChanges();
     }
@@ -196,39 +204,39 @@ class Program
         public DbSet<User> Users { get; set; } = default!;
     }
 
-    class Book(int Id, string Author, string Name, string Description)
+    class Book(string Author, string Name, string Description)
     {
-        public int Id { get; set; } = Id;
+        public int Id { get; set; } = default!;
         public string Author { get; set; } = Author;
         public string Name { get; set; } = Name;
         public string Description { get; set; } = Description;
     }
 
     class Borrow(
-        int Id,
-        int UserId,
+        
+        int userId,
         int BookId,
-        DateTime BorrowDate,
-        DateTime? ReturnDate)
+        DateTime borrowDate,
+        DateTime? returnDate)
     {
-        public int Id { get; set; } = Id;
+        public int Id { get; set; } = default!;
 
-        public int UserId { get; set; } = UserId;
+        public int UserId { get; set; } = userId;
         public int BookId { get; set; } = BookId;
 
-        public DateTime BorrowDate { get; set; } = BorrowDate;
-        public DateTime? ReturnDate { get; set; } = ReturnDate;
+        public DateTime BorrowDate { get; set; } = borrowDate;
+        public DateTime? ReturnDate { get; set; } = returnDate;
     }
 
     class User(
-        int Id,
+        
         string Name,
         string Email,
         string Password,
         int PhoneNumber,
         string Address)
     {
-        public int Id { get; set; } = Id;
+        public int Id { get; set; } = default!;
 
         public string Name { get; set; } = Name;
         public string Email { get; set; } = Email;
