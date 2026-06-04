@@ -1,21 +1,26 @@
 import { send } from "clientUtilities";
+import { get } from "componentUtilities";
+import { createBar } from "scripts/funcs";
+import { User } from "scripts/types";
 
-async function logIn() {
-    const email = (document.getElementById("email") as HTMLInputElement).value;
-    const password = (document.getElementById("password") as HTMLInputElement).value;
+var usernameInput = get("input", "usernameInput");
+var passwordInput = get("input", "passwordInput");
+var submitButton = get("button", "submitButton");
+var errorDiv = get("div", "errorDiv");
 
-    const user = await send("logIn",
-        email,
-        password
-    );
+var token = localStorage.getItem("token");
+var user = await send<User | null>("getUser", token);
 
-    if (!user) {
-        alert("Invalid login");
-        return;
-    }
+document.body.prepend(createBar(user));
 
+submitButton.onclick = async function () {
+  var token = await send<string | null>("logIn", usernameInput.value, passwordInput.value);
 
-    localStorage.setItem("user", JSON.stringify(user));
+  if (token == null) {
+    errorDiv.innerText = "Invalid username or password.";
+    return;
+  }
 
-    window.location.href = "home.html";
-}
+  localStorage.setItem("token", token);
+  location.href = "index.html";
+};

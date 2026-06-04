@@ -1,14 +1,75 @@
-function borrow(bookId: string): void {
-  console.log("Borrow book:", bookId);
+const borrow = document.querySelector<HTMLDivElement>("#borrow")!;
+const borrowBookBtn =document.querySelector<HTMLButtonElement>("#borrowBook")!;
+
+borrowBookBtn.addEventListener("click", borrowBook);
+
+function borrowBook(): void {
+  borrow.innerHTML = `
+    <div class="borrow-form">
+      <h3>Borrow Book</h3>
+
+      <input
+        type="text"
+        id="borrowerName"
+        placeholder="Enter your name"
+      >
+
+      <br><br>
+
+      <label>Borrow Date:</label>
+      <input
+        type="date"
+        id="borrowDate"
+      >
+
+      <br><br>
+
+      <label>Return Date:</label>
+      <input
+        type="date"
+        id="returnDate"
+      >
+
+      <br><br>
+
+      <button id="saveBorrowBtn">
+        Save
+      </button>
+    </div>
+  `;
+
+  const saveBorrowBtn =
+    document.querySelector<HTMLButtonElement>("#saveBorrowBtn")!;
+
+  saveBorrowBtn.addEventListener("click", saveBorrow);
 }
-function goToBook(book: HTMLElement): void {
-    const bookId = book.getAttribute("data-id");
-    const bookName = book.getAttribute("data-name");
 
-    if (!bookId || !bookName) return;
+function saveBorrow(): void {
+  const borrowerName =
+    (document.querySelector("#borrowerName") as HTMLInputElement).value;
 
-    window.location.href = `book.html?bookId=${bookId}&bookName=${encodeURIComponent(bookName)}`;
+  const borrowDate =
+    (document.querySelector("#borrowDate") as HTMLInputElement).value;
+
+  const returnDate =
+    (document.querySelector("#returnDate") as HTMLInputElement).value;
+
+  if (!borrowerName || !borrowDate || !returnDate) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  alert(
+    `Book borrowed successfully!
+    
+Name: ${borrowerName}
+Borrow Date: ${borrowDate}
+Return Date: ${returnDate}`
+  );
+
+  console.log({
+    borrowerName,
+    borrowDate,
+    returnDate,
+  });
 }
-
-
-(window as any).goToBook = goToBook;
