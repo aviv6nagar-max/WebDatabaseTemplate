@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Project.DatabaseUtilities;
 using Project.LoggingUtilities;
@@ -8,7 +9,7 @@ using Project.ServerUtilities;
 
 class Program
 {
-    static void Main()
+    static async Task Main()
     {
         int port = 5000;
 
@@ -32,7 +33,7 @@ class Program
 
             try
             {
-              
+
                 if (request.Name == "signUp")
                 {
                     var (name, email, password, phone, address)
@@ -59,7 +60,7 @@ class Program
                     request.Respond("User created");
                 }
 
-               
+
                 else if (request.Name == "logIn")
                 {
                     var (email, password)
@@ -72,13 +73,13 @@ class Program
                     request.Respond(user);
                 }
 
-               
+
                 else if (request.Name == "getAllBooks")
                 {
                     request.Respond(database.Books);
                 }
 
-              
+
                 else if (request.Name == "getBook")
                 {
                     var id = request.GetParams<int>();
@@ -89,14 +90,14 @@ class Program
                     request.Respond(book);
                 }
 
-                
+
                 else if (request.Name == "addBook")
                 {
                     var (author, name, description)
                         = request.GetParams<(string, string, string)>();
 
                     var book = new Book(
-                    
+
                         author,
                         name,
                         description
@@ -108,14 +109,14 @@ class Program
                     request.Respond("Book added");
                 }
 
-               
+
                 else if (request.Name == "borrowBook")
                 {
                     var (userId, bookId)
                         = request.GetParams<(int, int)>();
 
                     var Borrow = new Borrow(
-                       
+
                         userId,
                         bookId,
                         DateTime.Now,
@@ -128,7 +129,7 @@ class Program
                     request.Respond("Book borrowed");
                 }
 
-               
+
                 else if (request.Name == "returnBook")
                 {
                     var borrowId = request.GetParams<int>();
@@ -145,7 +146,7 @@ class Program
                     request.Respond("Book returned");
                 }
 
-             
+
                 else if (request.Name == "getUserBorrows")
                 {
                     var userId = request.GetParams<int>();
@@ -173,7 +174,7 @@ class Program
     static void AddDefaultBooks(Database database)
     {
         database.Books.Add(new Book(
-            
+
             "J.R.R Tolkien",
             "The Hobbit",
             "Fantasy adventure book"
@@ -192,7 +193,7 @@ class Program
             "by J.K Rowling",
             "Fantasy novel "
         ));
-        
+
 
         database.SaveChanges();
     }
@@ -213,7 +214,7 @@ class Program
     }
 
     class Borrow(
-        
+
         int userId,
         int BookId,
         DateTime borrowDate,
@@ -229,7 +230,7 @@ class Program
     }
 
     class User(
-        
+
         string Name,
         string Email,
         string Password,
@@ -247,6 +248,6 @@ class Program
         public int PhoneNumber { get; set; } = PhoneNumber;
         public string Address { get; set; } = Address;
     }
-    
-  
+
+
 }

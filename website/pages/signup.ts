@@ -1,25 +1,32 @@
 import { send } from "clientUtilities";
 import { get } from "componentUtilities";
+import { createBar } from "scripts/funcs";
+import { User } from "scripts/types";
+
+
 
 
 var usernameInput = get("input", "usernameInput");
+var emailInput = get("input","emailInput");
+var phoneInput = get("input","phoneInput");
+var AddressInput = get("input" , "addressInput");
 var passwordInput = get("input", "passwordInput");
-var confirmInput = get("input", "confirmInput");
+var confirmPasswordInput = get("input", "confirmInput");
 var submitButton = get("button", "submitButton");
 var errorDiv = get("div", "errorDiv");
 
 var token = localStorage.getItem("token");
-var user = await send< | null>("getUser", token);
+var user = await send< User| null>("getUser", token);
 
-
+document.body.prepend(createBar(user));
 
 submitButton.onclick = async function () {
-  if (passwordInput.value != confirmInput.value) {
+  if (passwordInput.value != confirmPasswordInput.value) {
     errorDiv.innerText = "Passwords do not match.";
     return;
   }
 
-  var token = await send<string | null>("signUp", usernameInput.value, passwordInput.value);
+  var token = await send<string | null>("signUp", usernameInput.value, emailInput.value, phoneInput.value,AddressInput, passwordInput.value);
   if (token == null) {
     errorDiv.innerText = "A user with this username already exists.";
     return;
