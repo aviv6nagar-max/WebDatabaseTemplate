@@ -7,9 +7,6 @@ import { User } from "scripts/types";
 
 
 var usernameInput = get("input", "usernameInput");
-var emailInput = get("input","emailInput");
-var phoneInput = get("input","phoneInput");
-var AddressInput = get("input" , "addressInput");
 var passwordInput = get("input", "passwordInput");
 var confirmPasswordInput = get("input", "confirmInput");
 var submitButton = get("button", "submitButton");
@@ -26,13 +23,14 @@ submitButton.onclick = async function () {
     return;
   }
 
-  var token = await send<string | null>("signUp", usernameInput.value, emailInput.value, phoneInput.value,AddressInput, passwordInput.value);
+  var token = await send<string | null>("signUp", usernameInput.value, passwordInput.value);
   if (token == null) {
     errorDiv.innerText = "A user with this username already exists.";
     return;
   }
 
   localStorage.setItem("token", token);
+  console.log(token)
 
   location.href = "index.html";
 };

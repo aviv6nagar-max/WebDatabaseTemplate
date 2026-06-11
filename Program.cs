@@ -33,134 +33,125 @@ class Program
 
             try
             {
-
-                if (request.Name == "signUp")
                 {
-                    var (name, email, password, phone, address)
-                        = request.GetParams<(string, string, string, int, string)>();
-
-                    if (database.Users.Any(u => u.Email == email))
+                    if (request.Name == "getUser")
                     {
-                        request.Respond<string?>("Email already exists");
-                        continue;
+                        var token = request.GetParams<string>();
+                        var user = database.Users.FirstOrDefault(u => u.Token == token);
+                        request.Respond(user);
                     }
-
-                    var user = new User(
-
-                        name,
-                        email,
-                        password,
-                        phone,
-                        address
-                    );
-
-                    database.Users.Add(user);
-                    database.SaveChanges();
-
-                    request.Respond("User created");
-                }
-
-
-                else if (request.Name == "logIn")
-                {
-                    var (email, password)
-                        = request.GetParams<(string, string)>();
-
-                    var user = database.Users.FirstOrDefault(u =>
-                        u.Email == email &&
-                        u.Password == password);
-
-                    request.Respond(user);
-                }
-
-
-                else if (request.Name == "getAllBooks")
-                {
-                    request.Respond(database.Books);
-                }
-
-
-                else if (request.Name == "getBook")
-                {
-                    var id = request.GetParams<int>();
-
-                    var book = database.Books
-                        .FirstOrDefault(b => b.Id == id);
-
-                    request.Respond(book);
-                }
-
-
-                else if (request.Name == "addBook")
-                {
-                    var (author, name, description)
-                        = request.GetParams<(string, string, string)>();
-
-                    var book = new Book(
-
-                        author,
-                        name,
-                        description
-                    );
-
-                    database.Books.Add(book);
-                    database.SaveChanges();
-
-                    request.Respond("Book added");
-                }
-
-
-                else if (request.Name == "borrowBook")
-                {
-                    var (userId, bookId)
-                        = request.GetParams<(int, int)>();
-
-                    var Borrow = new Borrow(
-
-                        userId,
-                        bookId,
-                        DateTime.Now,
-                        null
-                    );
-
-                    database.Borrows.Add(Borrow);
-                    database.SaveChanges();
-
-                    request.Respond("Book borrowed");
-                }
-
-
-                else if (request.Name == "returnBook")
-                {
-                    var borrowId = request.GetParams<int>();
-
-                    var borrow = database.Borrows
-                        .FirstOrDefault(b => b.Id == borrowId);
-
-                    if (borrow != null)
+                    else if (request.Name == "signUp")
                     {
-                        borrow.ReturnDate = DateTime.Now;
+                        var (username, password) = request.GetParams<(string, string)>();
+
+                        if (database.Users.Any(u => u.Username == username))
+                        {
+                            request.Respond<string?>(null);
+                            continue;
+                        }
+
+                        var token = Guid.NewGuid().ToString();
+                        var user = new User(username, password, token);
+                        database.Users.Add(user);
                         database.SaveChanges();
+
+                        request.Respond(token);
                     }
 
-                    request.Respond("Book returned");
-                }
 
+                    else if (request.Name == "logIn")
+                    {
+                        var (username, password)
+                            = request.GetParams<(string, string)>();
 
-                else if (request.Name == "getUserBorrows")
-                {
-                    var userId = request.GetParams<int>();
+                        var user = database.Users.FirstOrDefault(u =>
+                            u.Username == username &&
+                            u.Password == password);
 
-                    var borrows = database.Borrows
-                        .Where(b => b.UserId == userId)
-                        .ToList();
+                        request.Respond(user?.Token);
+                    }
 
-                    request.Respond(borrows);
-                }
+                    else if (request.Name == "getAllBooks")
+                    {
+                        request.Respond(database.Books);
+                    }
 
-                else
-                {
-                    request.SetStatusCode(400);
+                    else if (request.Name == "getBook")
+                    {
+                        var id = request.GetParams<int>();
+
+                        var book = database.Books
+                            .FirstOrDefault(b => b.Id == id);
+
+                        request.Respond(book);
+                    }
+
+                    else if (request.Name == "addBook")
+                    {
+                        var (author, name, description)
+                            = request.GetParams<(string, string, string)>();
+
+                        var book = new Book(
+                            author,
+                            name,
+                            description
+                        );
+
+                        database.Books.Add(book);
+                        database.SaveChanges();
+
+                        request.Respond("Book added");
+                    }
+
+                    else if (request.Name == "borrowBook")
+                    {
+                        var (userId, bookId)
+                            = request.GetParams<(int, int)>();
+
+                        var borrow = new Borrow(
+                            userId,
+                            bookId,
+                            DateTime.Now,
+                            null
+                        );
+
+                        database.Borrows.Add(borrow);
+                        database.SaveChanges();
+
+                        request.Respond("Book borrowed");
+                    }
+
+                    else if (request.Name == "returnBook")
+                    {
+                        var borrowId = request.GetParams<int>();
+
+                        var borrow = database.Borrows
+                            .FirstOrDefault(b => b.Id == borrowId);
+
+                        if (borrow != null)
+                        {
+                            borrow.ReturnDate = DateTime.Now;
+                            database.SaveChanges();
+                        }
+
+                        request.Respond("Book returned");
+                    }
+
+                    else if (request.Name == "getUserBorrows")
+                    {
+                        var userId = request.GetParams<int>();
+
+                        var borrows = database.Borrows
+                            .Where(b => b.UserId == userId)
+                            .ToList();
+
+                        request.Respond(borrows);
+                    }
+
+                    else
+                    {
+                        request.SetStatusCode(400);
+                    }
                 }
             }
             catch (Exception exception)
@@ -174,26 +165,22 @@ class Program
     static void AddDefaultBooks(Database database)
     {
         database.Books.Add(new Book(
-
             "J.R.R Tolkien",
             "The Hobbit",
             "Fantasy adventure book"
         ));
 
         database.Books.Add(new Book(
-
             "George Orwell",
             "1984",
             "Dystopian novel"
         ));
 
         database.Books.Add(new Book(
-
+            "J.K Rowling",
             "Harry Potter",
-            "by J.K Rowling",
-            "Fantasy novel "
+            "Fantasy novel"
         ));
-
 
         database.SaveChanges();
     }
@@ -208,46 +195,35 @@ class Program
     class Book(string Author, string Name, string Description)
     {
         public int Id { get; set; } = default!;
+
         public string Author { get; set; } = Author;
         public string Name { get; set; } = Name;
         public string Description { get; set; } = Description;
     }
 
     class Borrow(
-
         int userId,
-        int BookId,
+        int bookId,
         DateTime borrowDate,
         DateTime? returnDate)
     {
         public int Id { get; set; } = default!;
 
         public int UserId { get; set; } = userId;
-        public int BookId { get; set; } = BookId;
+        public int BookId { get; set; } = bookId;
 
         public DateTime BorrowDate { get; set; } = borrowDate;
         public DateTime? ReturnDate { get; set; } = returnDate;
     }
 
-    class User(
-
-        string Name,
-        string Email,
-        string Password,
-        int PhoneNumber,
-        string Address)
+    class User(string username,string Password,string token)
     {
         public int Id { get; set; } = default!;
 
-        public string Name { get; set; } = Name;
-        public string Email { get; set; } = Email;
+        public string Username { get; set; } = username;
 
-        [JsonIgnore]
-        public string Password { get; set; } = Password;
+        [JsonIgnore] public string Password { get; set; } = Password;
 
-        public int PhoneNumber { get; set; } = PhoneNumber;
-        public string Address { get; set; } = Address;
-    }
-
-
+        [JsonIgnore] public string Token { get; set; } = token;
+    };
 }
