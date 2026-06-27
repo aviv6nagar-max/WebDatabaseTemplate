@@ -30,7 +30,7 @@ class Program
             var request = server.WaitForRequest();
 
             Console.WriteLine($"Received request: {request.Name}");
-
+            Console.WriteLine("SIGNUP REQUEST ARRIVED");
             try
             {
                 {
@@ -54,7 +54,7 @@ class Program
                         var user = new User(username, password, token);
                         database.Users.Add(user);
                         database.SaveChanges();
-
+                        Console.WriteLine("SIGNUP CREATED");
                         request.Respond(token);
                     }
 
