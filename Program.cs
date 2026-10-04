@@ -16,10 +16,6 @@ class Program
         var server = new Server(port);
         var database = new Database();
 
-        Console.WriteLine("The server is running");
-        Console.WriteLine($"Local:   http://localhost:{port}/website/pages/index.html");
-        Console.WriteLine($"Network: http://{Network.GetLocalNetworkIPAddress()}:{port}/website/pages/index.html");
-
         if (database.IsNewlyCreated)
         {
             AddDefaultBooks(database);
@@ -29,8 +25,6 @@ class Program
         {
             var request = server.WaitForRequest();
 
-            Console.WriteLine($"Received request: {request.Name}");
-            Console.WriteLine("SIGNUP REQUEST ARRIVED");
             try
             {
                 {
@@ -88,13 +82,14 @@ class Program
 
                     else if (request.Name == "addBook")
                     {
-                        var (author, name, description)
-                            = request.GetParams<(string, string, string)>();
+                        var (author, name, description, imageUrl)
+                            = request.GetParams<(string, string, string, string)>();
 
                         var book = new Book(
                             author,
                             name,
-                            description
+                            description,
+                            imageUrl
                         );
 
                         database.Books.Add(book);
@@ -167,21 +162,31 @@ class Program
         database.Books.Add(new Book(
             "J.R.R Tolkien",
             "The Hobbit",
-            "Fantasy adventure book"
+            "Fantasy adventure book",
+            "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1546071216i/5907.jpg"
         ));
 
         database.Books.Add(new Book(
             "George Orwell",
             "1984",
-            "Dystopian novel"
+            "Dystopian novel",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-lsizGS00oXHUujdAeZ_m2kyVVmBRr846rwcFXzANfjwEyo9XVtNKgRlhsvxz5xvN5Ve6pr5KyngOcOyVa1NUT2010dpXwdIG1RcNrg&s=10"
         ));
 
         database.Books.Add(new Book(
             "J.K Rowling",
             "Harry Potter",
-            "Fantasy novel"
+            "Fantasy novel",
+            "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_.jpg"
         ));
 
+        database.Books.Add(new Book(
+            "Itay Nagar",
+            "How to be a milioner",
+            "Education",
+            "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_.jpg"
+        ));
+          
         database.SaveChanges();
     }
 
@@ -192,13 +197,14 @@ class Program
         public DbSet<User> Users { get; set; } = default!;
     }
 
-    class Book(string Author, string Name, string Description)
+    class Book(string Author, string Name, string Description, string imageUrl)
     {
         public int Id { get; set; } = default!;
 
         public string Author { get; set; } = Author;
         public string Name { get; set; } = Name;
         public string Description { get; set; } = Description;
+        public string imageUrl {get; set;} = imageUrl;
     }
 
     class Borrow(

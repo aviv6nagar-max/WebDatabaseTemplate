@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,23 +8,23 @@
 
 <body class="login-page">
 
-<a href="index.html" class="back-btn">Back</a> 
+<a href="index.html" class="back-btn">Back</a>
 
 <div class="login-container">
   <h2>Login</h2>
 
-  <form action="index.html">
-    <input type="text" placeholder="Username" required>
-    <input type="password" placeholder="Password" required>
+  <form id="loginForm">
+    <input id="usernameInput" type="text" placeholder="Username" required>
+    <input id="passwordInput" type="password" placeholder="Password" required>
 
-
-<button id="submit">Login</button>
-
- 
+    <button id="submitButton" type="submit">Login</button>
   </form>
 
   <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+
+  <div id="errorDiv"></div>
 </div>
 
+<script type="module" src="login.js"></script>
 </body>
 </html>

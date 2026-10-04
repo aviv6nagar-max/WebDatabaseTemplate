@@ -3,10 +3,11 @@ import { Book, User } from "./types";
 
 export function createBar(user: User | null) {
   var barRightDiv: HTMLDivElement;
+  console.log("func:" + user);
   if (user == null) {
     barRightDiv = create("div", { className: "barRightDiv" },
-      create("a", { innerText: "Sign Up", href: "signUp.html" }),
-      create("a", { innerText: "Log In", href: "logIn.html" }),
+      create("a", { innerText: "Sign Up", href: "signup.html" }),
+      create("a", { innerText: "Log In", href: "login.html" }),
     );
   }
   else {
